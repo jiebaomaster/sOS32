@@ -1,0 +1,19 @@
+# bb core
+
+跟着大神做内核
+
+## startup
+
+``` shell
+mkdir Kernel
+
+make
+
+make qemu
+```
+
+## 参考资料
+
+[Bran's Kernel Development Tutorial](http://www.osdever.net/bkerndev/Docs/title.htm)
+
+[hurley25/hurlex-doc](https://github.com/hurley25/hurlex-doc)
