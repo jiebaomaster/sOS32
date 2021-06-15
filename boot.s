@@ -46,6 +46,7 @@ dd MBOOT_CHECKSUM       ; 检测数值，其含义在定义处
 
 [GLOBAL start]      ; 向外部声明内核代码入口，此处提供该声明给链接器
 [GLOBAL glb_mboot_ptr]  ; 向外部声明 struct multiboot * 变量
+[GLOBAL stack]          ; 向外部声明内核栈地址
 [EXTERN kern_entry]     ; 声明内核 C 代码的入口函数
 
 start:
