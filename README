@@ -5,7 +5,7 @@
 ## startup
 
 ``` shell
-mkdir Kernel
+mkdir _kernel
 
 make
 

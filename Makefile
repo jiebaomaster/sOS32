@@ -18,7 +18,7 @@ C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-pic -fno-builtin -fno-stac
 # -T scripts/kernel.ld 使用我们自己的链接器脚本。
 # -m elf_i386 生成i386平台下的ELF格式的可执行文件
 # -nostdlib 不链接C语言的标准库
-LD_FLAGS = -T script/kernel.ld -m elf_i386 -nostdlib
+LD_FLAGS = -T scripts/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
 all: $(S_OBJECTS) $(C_OBJECTS) link update_image
@@ -40,10 +40,10 @@ clean:
 
 .PHONY:update_image
 update_image:
-	sudo mount floppy.img ./kernel
-	sudo cp bbcore ./kernel/hx_kernel
+	sudo mount floppy.img ./_kernel
+	sudo cp bbcore ./_kernel/hx_kernel
 	sleep 1
-	sudo umount ./kernel
+	sudo umount ./_kernel
 
 .PHONY:qemu
 qemu:
@@ -53,4 +53,4 @@ qemu:
 debug:
 	qemu-system-i386 -S -s -fda floppy.img -boot a &
 	sleep 1
-	cgdb -x tools/gdbinit
+	cgdb -x scripts/gdbinit
