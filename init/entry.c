@@ -1,7 +1,8 @@
-#include "idt.h"
-#include "gdt.h"
 #include "console.h"
 #include "debug.h"
+#include "gdt.h"
+#include "idt.h"
+#include "pmm.h"
 #include "timer.h"
 
 int kern_entry() {
@@ -11,16 +12,43 @@ int kern_entry() {
 
   console_clear();
   console_write_color("Hello world!\n", rc_black, rc_green);
-  
+
   // panic("test");
   // 手动触发两个中断
   // asm volatile ("int $0x3");
   // asm volatile ("int $0x4");
-  
-  init_timer(200);
-  
+
+  // init_timer(200);
+
   // 开启中断
   asm volatile("sti");
+
+  printk("Kernel in memory start: 0x%08X\n", kern_start);
+  printk("Kernel in memory end:   0x%08X\n", kern_end);
+  printk("Kernel in memory used:   %d KB\n\n",
+         (kern_end - kern_start + 1023) / 1024);
+
+  show_mm_map();
+  init_pmm();
+
+  printk_color(rc_black, rc_red,
+               "\nThe Count of Physical Memory Page is: %u\n\n",
+               phy_page_count);
+
+  uint32_t allc_addr = NULL;
+  printk_color(rc_black, rc_light_brown, "Test Physical Memory Alloc :\n");
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
 
   return 0;
 }
