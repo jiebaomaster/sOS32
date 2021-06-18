@@ -36,7 +36,7 @@ void init_pmm() {
     // 简单起见，我们只选用物理内存中0x100000开始的可用空间
     if (mmap->type == 1 && mmap->base_addr_low == 0x100000) {
       // 可用地址从 被内核占用的空间 之后开始
-      uint32_t page_addr = 
+      uint32_t page_addr =
           mmap->base_addr_low + (uint32_t)(kern_end - kern_start);
       uint32_t page_addr_end = mmap->base_addr_low + mmap->length_low;
 
@@ -62,4 +62,26 @@ void pmm_free_page(uint32_t p) {
   assert(pmm_stack_top != PAGE_MAX_SIZE, "out of pmm_stack stack");
 
   pmm_stack[++pmm_stack_top] = p;
+}
+
+void test_pmm() {
+  printk_color(rc_black, rc_red,
+               "\nThe Count of Physical Memory Page is: %u\n\n",
+               phy_page_count);
+
+  uint32_t allc_addr = NULL;
+  printk_color(rc_black, rc_light_brown, "Test Physical Memory Alloc :\n");
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  allc_addr = pmm_alloc_page();
+  printk_color(rc_black, rc_light_brown, "Alloc Physical Addr: 0x%08X\n",
+               allc_addr);
+  printk("\n");
 }

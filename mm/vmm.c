@@ -19,7 +19,7 @@ void init_vmm() {
   uint32_t i, j;
   for (i = kern_pte_first_idx, j = 0; i < kern_pte_first_idx + PTE_COUNT;
        i++, j++)
-    // 此处是内核虚拟地址， MMU 需要物理地址，所以减去偏移，下同
+    // 此处是内核虚拟地址，MMU 需要物理地址，所以减去偏移，下同
     pgd_kern[i] =
         ((uint32_t)pte_kern[j] - PAGE_OFFSET) | PAGE_PRESENT | PAGE_WRITE;
 

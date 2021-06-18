@@ -38,4 +38,7 @@ uint32_t pmm_alloc_page();
 // 释放物理页
 void pmm_free_page(uint32_t p);
 
+// 测试物理内存管理
+void test_pmm();
+
 #endif
