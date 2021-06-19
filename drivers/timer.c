@@ -2,10 +2,12 @@
 #include "debug.h"
 #include "idt.h"
 #include "timer.h"
+#include "sched.h"
 
 void timer_callback(pt_regs *regs) {
-  static uint32_t tick = 0;
-  printk_color(rc_black, rc_red, "Tick: %d\n", tick++);
+  // static uint32_t tick = 0;
+  // printk_color(rc_black, rc_red, "Tick: %d\n", tick++);
+  schedule(); // 每次时间中断时触发内核线程调度
 }
 
 void init_timer(uint32_t freguency) {
