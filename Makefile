@@ -40,6 +40,7 @@ clean:
 
 .PHONY:update_image
 update_image:
+	mkdir _kernel
 	sudo mount floppy.img ./_kernel
 	sudo cp bbcore ./_kernel/hx_kernel
 	sleep 1
